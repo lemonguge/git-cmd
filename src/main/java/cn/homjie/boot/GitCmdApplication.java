@@ -1,3 +1,4 @@
+
 package cn.homjie.boot;
 
 import java.io.File;
@@ -15,9 +16,20 @@ public class GitCmdApplication {
 	public static void main(String[] args) {
 
 		// 编码
-		byCode();
+		// byCode();
 		// 输入
 		// byInput();
+
+		byRepository();
+
+	}
+
+	static void byRepository() {
+		File repository = new File("E:\\gitlabr\\build");
+		GitExecute gitExecute = new GitRepository(repository);
+//		gitExecute.register(GitConditions.gitCheckout("master", true));
+		gitExecute.register(GitConditions.gitPull());
+		gitExecute.exec();
 	}
 
 	static void byInput() {
@@ -28,11 +40,11 @@ public class GitCmdApplication {
 		// E:\GitLab仓库
 		File dir = new File(path);
 
-		GitHandle handle = new GitHandle(dir);
+		GitExecute gitExecute = new GitHandle(dir);
 
-		handle.register(new ScannerGitCondition(reader));
+		gitExecute.register(new ScannerGitCondition(reader));
 
-		handle.exec();
+		gitExecute.exec();
 
 		reader.close();
 	}
@@ -40,41 +52,46 @@ public class GitCmdApplication {
 	static void byCode() {
 
 		// E:\\GitLab仓库
-		File repository = new File("E:\\GitLab仓库");
-		GitHandle gitHandle = new GitHandle(repository);
+		File repository = new File("E:\\gitlab");
+		GitExecute gitExecute = new GitHandle(repository);
 
 		// newBranch(gitHandle);
 
-		gitHandle.register(GitConditions.gitPull());
-		// gitHandle.register(GitConditions.gitCheckout("2.5sp6", true));
-		// gitHandle.register(GitConditions.gitPull());
+		// fix-transaction-too-long
+		gitExecute.register(GitConditions.gitPull());
+		// gitExecute.register(GitConditions.gitCheckout("master", true));
+		// gitExecute.register(GitConditions.gitPull());
 
-		// gitHandle.register(GitConditions.gitCheckout("master", true));
-		// gitHandle.register(GitConditions.gitBranchTrack("master"));
+		// String branch = "fix-transaction-too-long";
+		// gitExecute.register(GitConditions.gitBranchNew(branch));
+		// gitExecute.register(GitConditions.gitCheckout(branch, true));
 
-		// gitHandle.register(GitConditions.gitPull());
-		// gitHandle.register(GitConditions.gitCheckout("master", true));
-		// gitHandle.register(GitConditions.gitPull());
-		// gitHandle.register(GitConditions.gitMerge("2.5sp6"));
+		// gitExecute.register(GitConditions.gitBranchTrack("master"));
 
-		// gitHandle.register(GitConditions.gitBranchPush("master"));
+		// gitExecute.register(GitConditions.gitPull());
+		// gitExecute.register(GitConditions.gitCheckout("fengdai_2.6sp4_release", false));
+		// gitExecute.register(GitConditions.gitPull());
 
-		// gitHandle.register(GitConditions.gitBranchDelete("2.5sp6", true));
+		// gitExecute.register(GitConditions.gitMerge("fengdai_2.6sp4_release"));
 
-		// gitHandle.register(GitConditions.gitBranchVersion());
+		// gitExecute.register(GitConditions.gitBranchPush("master"));
 
-		gitHandle.exec();
+		// gitExecute.register(GitConditions.gitBranchDelete("fengdai_2.6sp4_release", true));
+		// gitExecute.register(GitConditions.gitBranchVersion());
+
+		gitExecute.exec();
 
 	}
 
-	static void newBranch(GitHandle gitHandle) {
-		String branch = "2.5sp6";
+	static void newBranch(GitExecute gitExecute) {
+		String branch = "2.6sp5";
 
-		gitHandle.register(GitConditions.gitPull());
-		gitHandle.register(GitConditions.gitBranchNew(branch));
-		gitHandle.register(GitConditions.gitCheckout(branch, true));
-		gitHandle.register(GitConditions.gitBranchPush(branch));
-		gitHandle.register(GitConditions.gitBranchTrack(branch));
+		gitExecute.register(GitConditions.gitPull());
+		gitExecute.register(GitConditions.gitBranchNew(branch));
+		gitExecute.register(GitConditions.gitCheckout(branch, true));
+		gitExecute.register(GitConditions.gitBranchPush(branch));
+		gitExecute.register(GitConditions.gitBranchTrack(branch));
+		gitExecute.register(GitConditions.gitPull());
 	}
 
 }
