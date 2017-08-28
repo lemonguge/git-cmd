@@ -1,4 +1,3 @@
-
 package cn.homjie.boot;
 
 import java.io.File;
@@ -21,13 +20,12 @@ public class GitCmdApplication {
 		// byInput();
 
 		byRepository();
-
 	}
 
 	static void byRepository() {
-		File repository = new File("E:\\gitlabr\\build");
+		File repository = new File("E:\\gitlab\\build");
 		GitExecute gitExecute = new GitRepository(repository);
-//		gitExecute.register(GitConditions.gitCheckout("master", true));
+		gitExecute.register(GitConditions.gitCheckout("dev", true));
 		gitExecute.register(GitConditions.gitPull());
 		gitExecute.exec();
 	}
@@ -55,7 +53,7 @@ public class GitCmdApplication {
 		File repository = new File("E:\\gitlab");
 		GitExecute gitExecute = new GitHandle(repository);
 
-		// newBranch(gitHandle);
+		// newBranch(gitExecute);
 
 		// fix-transaction-too-long
 		gitExecute.register(GitConditions.gitPull());
@@ -69,14 +67,14 @@ public class GitCmdApplication {
 		// gitExecute.register(GitConditions.gitBranchTrack("master"));
 
 		// gitExecute.register(GitConditions.gitPull());
-		// gitExecute.register(GitConditions.gitCheckout("fengdai_2.6sp4_release", false));
+		// gitExecute.register(GitConditions.gitCheckout("2.6sp9", true));
 		// gitExecute.register(GitConditions.gitPull());
 
-		// gitExecute.register(GitConditions.gitMerge("fengdai_2.6sp4_release"));
+		// gitExecute.register(GitConditions.gitMerge("2.6sp9"));
 
 		// gitExecute.register(GitConditions.gitBranchPush("master"));
 
-		// gitExecute.register(GitConditions.gitBranchDelete("fengdai_2.6sp4_release", true));
+		// gitExecute.register(GitConditions.gitBranchDelete("2.6sp7", true));
 		// gitExecute.register(GitConditions.gitBranchVersion());
 
 		gitExecute.exec();
@@ -84,7 +82,7 @@ public class GitCmdApplication {
 	}
 
 	static void newBranch(GitExecute gitExecute) {
-		String branch = "2.6sp5";
+		String branch = "2.6sp9";
 
 		gitExecute.register(GitConditions.gitPull());
 		gitExecute.register(GitConditions.gitBranchNew(branch));
@@ -92,6 +90,7 @@ public class GitCmdApplication {
 		gitExecute.register(GitConditions.gitBranchPush(branch));
 		gitExecute.register(GitConditions.gitBranchTrack(branch));
 		gitExecute.register(GitConditions.gitPull());
+		gitExecute.register(GitConditions.gitBranchVersion());
 	}
 
 }

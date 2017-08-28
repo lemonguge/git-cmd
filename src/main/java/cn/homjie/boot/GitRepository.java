@@ -12,6 +12,7 @@ public class GitRepository extends GitExecute {
 				List<File> childDirs = Arrays.asList(repository.listFiles(f -> f.isDirectory()));
 				boolean match = childDirs.stream().anyMatch(f -> ".git".equals(f.getName()));
 				if (match) {
+					projects.add(repository);
 					project(repository, projects);
 				} else {
 					log.info("it is not git repository.");
